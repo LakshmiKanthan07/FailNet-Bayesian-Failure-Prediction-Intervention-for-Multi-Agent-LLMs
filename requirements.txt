@@ -1,0 +1,13 @@
+pgmpy
+pandas
+numpy
+networkx
+matplotlib
+seaborn
+scikit-learn
+xgboost
+jupyterlab
+pyyaml
+tqdm
+streamlit
+plotly

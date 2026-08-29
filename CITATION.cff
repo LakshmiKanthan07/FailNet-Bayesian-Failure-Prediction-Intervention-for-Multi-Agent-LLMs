@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software or the associated datasets, please cite it as below."
+title: "FailNet: A Bayesian Network for Diagnostic Failure Prediction & Intervention Policy in Multi-Agent LLM Systems"
+authors:
+  - family-names: ""
+    given-names: "FailNet Contributors"
+version: 1.0.0
+date-released: 2026-08-29
+url: "https://github.com/LakshmiKanthan07/FailNet-Bayesian-Failure-Prediction-Intervention-for-Multi-Agent-LLMs"
+repository-code: "https://github.com/LakshmiKanthan07/FailNet-Bayesian-Failure-Prediction-Intervention-for-Multi-Agent-LLMs"
+license: MIT
+references:
+  - type: dataset
+    title: "Who and When: A Failure Attribution Dataset for LLM Agents"
+    repository: "https://github.com/ag2ai/Agents_Failure_Attribution"
+  - type: dataset
+    title: "AEGIS: A Large-Scale Failure Attribution Dataset"
+  - type: dataset
+    title: "MAST-Data: Multi-Agent System Taxonomy Data"

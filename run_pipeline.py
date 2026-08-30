@@ -29,6 +29,10 @@ if __name__ == "__main__":
         ("Phase 1 & 2: Data Ingestion (Synthetic)", "src.data_ingestion"),
         ("Phase 3 & 4: BN Structure & Learning", "src.bn_learning"),
         ("Phase 7 & 8: Baseline vs BN Experiment", "experiments.exp1_bn_vs_baseline"),
+        ("Experiment 2: Exact vs Approx Inference", "experiments.exp2_exact_vs_approx"),
+        ("Experiment 3: MAP Diagnosis", "experiments.exp3_map_diagnosis"),
+        ("Experiment 4: Inference Time vs Evidence Size", "experiments.exp4_network_size"),
+        ("Experiment 5: Evidence Uncertainty", "experiments.exp5_evidence_uncertainty"),
     ]
     
     for step_name, module_path in steps:

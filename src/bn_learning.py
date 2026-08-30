@@ -3,7 +3,6 @@ from pgmpy.estimators import BayesianEstimator
 from src.bn_structure import get_failnet_model
 import os
 def learn_parameters(data_path="data/processed/bn_evidence_table.csv", output_path="failnet_model.bif"):
-    
     """
     Learn the Conditional Probability Tables (CPDs) for the FailNet BN using Bayesian Estimation (K2 prior).
     """

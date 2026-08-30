@@ -43,7 +43,6 @@ failnet_edges = [
 
 def get_failnet_model():
     return DiscreteBayesianNetwork(failnet_edges)
-
 if __name__ == "__main__":
     model = get_failnet_model()
     print("Nodes:", len(model.nodes()))

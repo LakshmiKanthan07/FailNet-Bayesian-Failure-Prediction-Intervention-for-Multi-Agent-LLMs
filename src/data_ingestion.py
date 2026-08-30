@@ -21,8 +21,6 @@ def generate_synthetic_data(num_samples=2000, output_path="data/processed/bn_evi
 
     df = pd.DataFrame(data)
 
-    # Deterministic or highly correlated child nodes based on parents
-    # Required_Tool_Count depends on Task_Complexity
     df["Required_Tool_Count"] = df["Task_Complexity"].map({"Low": "Few", "Medium": "Moderate", "High": "Many"})
     
     # Planning_Complexity depends on Task_Complexity and Required_Tool_Count

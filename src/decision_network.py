@@ -10,12 +10,8 @@ class MockDecisionNetwork:
     """
     def __init__(self, inference_engine):
         self.inference = inference_engine
-        
-        # Actions: {Continue, Retry_Step, Escalate_to_Human, Halt}
         self.actions = ["Continue", "Retry_Step", "Escalate_to_Human", "Halt"]
-        
-        # Utility Table: U(Action, Task_Failure)
-        # Task_Failure in {Yes, No}
+
         self.utility = {
             "Continue": {"No": 10, "Yes": -20},
             "Retry_Step": {"No": 5, "Yes": -5},

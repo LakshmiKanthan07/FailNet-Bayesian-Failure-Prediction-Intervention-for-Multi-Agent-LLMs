@@ -8,17 +8,14 @@ import numpy as np
 def evaluate_baselines(data_path="data/processed/bn_evidence_table.csv"):
     df = pd.read_csv(data_path)
     
-    # Drop columns not used as features or targets
     if "label_provenance" in df.columns:
         df = df.drop(columns=["label_provenance"])
     
-    # Target is Task_Failure
     if "Failure_Severity" in df.columns:
         df = df.drop(columns=["Failure_Severity"])
         
     df["Task_Failure"] = df["Task_Failure"].map({"Yes": 1, "No": 0})
     
-    # One-hot encode categorical features
     df_encoded = pd.get_dummies(df.drop(columns=["Task_Failure"]))
     X, y = df_encoded, df["Task_Failure"]
     

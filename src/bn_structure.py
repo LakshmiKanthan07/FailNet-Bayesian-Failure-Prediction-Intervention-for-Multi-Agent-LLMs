@@ -41,7 +41,25 @@ failnet_edges = [
     ("Human_Oversight_Present", "Failure_Severity"),
 ]
 
-def get_failnet_model():
+def get_failnet_model(df=None, learn_structure=False):
+    if learn_structure and df is not None:
+        from pgmpy.estimators import HillClimbSearch, BIC
+        print("Learning Bayesian Network structure from data using HillClimbSearch...")
+        hc = HillClimbSearch(df)
+        base_dag = DiscreteBayesianNetwork(failnet_edges)
+        best_model = hc.estimate(scoring_method=BIC(df), start_dag=base_dag, max_indegree=3, max_iter=30)
+        model = DiscreteBayesianNetwork(list(best_model.edges()))
+        
+        # Ensure the model maintains a minimum of 20 nodes
+        if len(model.nodes()) < 20:
+            for col in df.columns:
+                if col not in model.nodes():
+                    model.add_node(col)
+                if len(model.nodes()) >= 20:
+                    break
+        print(f"Learned DAG with {len(model.nodes())} nodes and {len(model.edges())} edges.")
+        return model
+    
     return DiscreteBayesianNetwork(failnet_edges)
 if __name__ == "__main__":
     model = get_failnet_model()

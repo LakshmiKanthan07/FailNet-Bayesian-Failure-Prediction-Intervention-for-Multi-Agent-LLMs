@@ -21,19 +21,30 @@ class FailNetInference:
 
     def map_diagnosis(self, evidence: dict):
         """Most probable causal configuration given an observed failure."""
+        vars_to_query = ["Plan_Quality", "Tool_Selection_Correctness", "Hallucination_Risk",
+                         "Intermediate_Verification_Quality"]
+        vars_to_query = [v for v in vars_to_query if v not in evidence]
+        
         return self.ve.map_query(
-            variables=["Plan_Quality", "Tool_Selection_Correctness", "Hallucination_Risk",
-                       "Intermediate_Verification_Quality"],
+            variables=vars_to_query,
             evidence=evidence, show_progress=False,
         )
 
     def approximate_posterior(self, evidence: dict, n_samples: int = 5000):
-        """Gibbs-sampling MCMC posterior — for latent/proxy-labeled nodes and larger evidence sets."""
-        gibbs = GibbsSampling(self.model)
-        samples = gibbs.sample(size=n_samples)
-        for var, val in evidence.items():
-            samples = samples[samples[var] == val]
-        return samples["Task_Failure"].value_counts(normalize=True)
+        """Likelihood Weighting approximate posterior — fast & robust for evidence queries."""
+        from pgmpy.sampling import BayesianModelSampling
+        sampler = BayesianModelSampling(self.model)
+        if evidence:
+            ev_tuples = [(k, v) for k, v in evidence.items()]
+            samples = sampler.likelihood_weighted_sample(evidence=ev_tuples, size=n_samples, show_progress=False)
+            grouped = samples.groupby("Task_Failure")["_weight"].sum()
+            total_wt = grouped.sum()
+            if total_wt > 0:
+                return (grouped / total_wt).to_dict()
+            return samples["Task_Failure"].value_counts(normalize=True).to_dict()
+        else:
+            samples = sampler.forward_sample(size=n_samples, show_progress=False)
+            return samples["Task_Failure"].value_counts(normalize=True).to_dict()
 
     def streaming_belief_update(self, evidence_sequence: list):
         """Belief propagation re-run as each new evidence item arrives — the monitoring use case."""

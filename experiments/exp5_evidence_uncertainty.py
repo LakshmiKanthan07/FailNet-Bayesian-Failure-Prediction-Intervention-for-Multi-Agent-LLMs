@@ -11,7 +11,7 @@ def run_experiment_5():
     
     # Simulate an agent execution trace
     trace = [
-        {"Task_Complexity": "High", "Base_Model_Capability": "Low"}, # Step 1: Initial context
+        {"Task_Complexity": "High", "Base_Model_Capability": "High"}, # Step 1: Initial context
         {"Plan_Quality": "Flawed"}, # Step 2: Planning phase
         {"Tool_Selection_Correctness": "Incorrect"}, # Step 3: Tool use
         {"Execution_Error_Occurred": "Yes"}, # Step 4: Execution result

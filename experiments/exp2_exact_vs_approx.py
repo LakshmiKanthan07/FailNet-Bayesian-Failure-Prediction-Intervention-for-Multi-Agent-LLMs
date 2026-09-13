@@ -13,7 +13,7 @@ def run_experiment_2():
     test_cases = [
         {"name": "No Evidence", "evidence": {}},
         {"name": "Single Evidence", "evidence": {"Execution_Error_Occurred": "Yes"}},
-        {"name": "Multiple Evidence", "evidence": {"Execution_Error_Occurred": "Yes", "Task_Complexity": "High", "Base_Model_Capability": "Low"}}
+        {"name": "Multiple Evidence", "evidence": {"Execution_Error_Occurred": "Yes", "Task_Complexity": "High", "Plan_Quality": "Good"}}
     ]
     
     results = []

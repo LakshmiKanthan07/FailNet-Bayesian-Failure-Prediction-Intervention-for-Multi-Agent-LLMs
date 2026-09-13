@@ -26,7 +26,7 @@ if __name__ == "__main__":
     print("Starting FailNet Full Pipeline...")
     
     steps = [
-        ("Phase 1 & 2: Data Ingestion (Synthetic)", "src.data_ingestion"),
+        ("Phase 1 & 2: Data Ingestion (Original Data)", "src.data_ingestion"),
         ("Phase 3 & 4: BN Structure & Learning", "src.bn_learning"),
         ("Phase 7 & 8: Baseline vs BN Experiment", "experiments.exp1_bn_vs_baseline"),
         ("Experiment 2: Exact vs Approx Inference", "experiments.exp2_exact_vs_approx"),

@@ -22,20 +22,16 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# Virtual Environment
 failnet-env/
 venv/
 .env/
 env/
 ENV/
 
-# Jupyter Notebook
 .ipynb_checkpoints
 
-# Streamlit
 .streamlit/
 
-# OS generated files
 .DS_Store
 .DS_Store?
 ._*

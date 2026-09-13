@@ -10,7 +10,7 @@ def run_experiment_3():
     scenarios = [
         {"name": "Task Failed", "evidence": {"Task_Failure": "Yes"}},
         {"name": "Task Failed, Good Plan", "evidence": {"Task_Failure": "Yes", "Plan_Quality": "Good"}},
-        {"name": "Task Failed, Low Capability Model", "evidence": {"Task_Failure": "Yes", "Base_Model_Capability": "Low"}},
+        {"name": "Task Failed, High Complexity", "evidence": {"Task_Failure": "Yes", "Task_Complexity": "High"}},
     ]
     
     for scenario in scenarios:

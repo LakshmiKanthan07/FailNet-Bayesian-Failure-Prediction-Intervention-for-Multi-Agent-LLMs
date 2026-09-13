@@ -13,10 +13,10 @@ def run_experiment_4():
     # Evidence sequence to add one by one
     evidence_nodes = [
         ("Task_Complexity", "High"),
-        ("Base_Model_Capability", "Low"),
-        ("Instruction_Ambiguity", "High"),
-        ("Environment_Volatility", "High"),
-        ("Tool_Reliability", "Low"),
+        ("Base_Model_Capability", "High"),
+        ("Instruction_Ambiguity", "Low"),
+        ("Environment_Volatility", "Low"),
+        ("Tool_Reliability", "High"),
         ("Human_Oversight_Present", "No"),
         ("Multi_Agent_Coordination_Required", "Yes")
     ]

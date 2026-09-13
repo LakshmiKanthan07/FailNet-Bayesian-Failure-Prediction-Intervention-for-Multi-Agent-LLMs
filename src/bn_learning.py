@@ -11,11 +11,11 @@ def learn_parameters(data_path="data/processed/bn_evidence_table.csv", output_pa
     if "label_provenance" in df.columns:
         df = df.drop(columns=["label_provenance"])
         
-    model = get_failnet_model()    
-    print("Fitting model with BayesianEstimator and K2 prior...")
+    model = get_failnet_model(df)    
+    print("Fitting model with BayesianEstimator and BDeu prior...")
     estimator = BayesianEstimator(model, df)
 
-    cpds = estimator.get_parameters(prior_type="K2", equivalent_sample_size=0.1)
+    cpds = estimator.get_parameters(prior_type="BDeu", equivalent_sample_size=10)
     model.add_cpds(*cpds)
     print("Checking model consistency...")
     assert model.check_model()

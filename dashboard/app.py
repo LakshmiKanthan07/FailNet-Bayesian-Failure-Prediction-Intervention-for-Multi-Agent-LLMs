@@ -64,13 +64,18 @@ with col2:
     st.subheader("2. MAP Diagnosis & Intervention")
     with st.spinner("Diagnosing..."):
         map_diag = inference.map_diagnosis(evidence)
-        opt_action, eus = dn.get_optimal_policy(evidence)
+        opt_action, eus, best_diagnostic, best_voi_value = dn.recommend_active_intervention(evidence)
     
     st.markdown("**Most Probable Explanation (MAP):**")
     st.json(map_diag)
     
     st.markdown("**Recommended Policy Intervention:**")
     st.success(f"Action: {opt_action}")
+    
+    if best_diagnostic:
+        st.info(f"**Active Query Recommendation:** Ask the agent about `{best_diagnostic}` to maximize decision certainty (Expected Utility Gain: {best_voi_value:.2f})")
+    else:
+        st.info("**Active Query Recommendation:** No further diagnostic queries will significantly improve the current decision.")
     
     st.markdown("Expected Utilities:")
     st.bar_chart(pd.DataFrame.from_dict(eus, orient='index', columns=['Utility']))

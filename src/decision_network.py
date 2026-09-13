@@ -13,8 +13,8 @@ class MockDecisionNetwork:
         self.actions = ["Continue", "Retry_Step", "Escalate_to_Human", "Halt"]
 
         self.utility = {
-            "Continue": {"No": 10, "Yes": -20},
-            "Retry_Step": {"No": 5, "Yes": -5},
+            "Continue": {"No": 50, "Yes": -20},
+            "Retry_Step": {"No": 15, "Yes": -5},
             "Escalate_to_Human": {"No": -2, "Yes": -2},
             "Halt": {"No": 0, "Yes": 5}
         }
@@ -34,6 +34,22 @@ class MockDecisionNetwork:
         # 3. Choose max EU
         best_action = max(expected_utilities, key=expected_utilities.get)
         return best_action, expected_utilities
+        
+    def recommend_active_intervention(self, evidence: dict):
+        """Returns the optimal action, expected utilities, and the best VoI recommendation if applicable."""
+        best_action, expected_utilities = self.get_optimal_policy(evidence)
+        
+        from src.voi import compute_voi
+        voi_results = compute_voi(self.inference, self, evidence)
+        
+        best_diagnostic = None
+        best_voi_value = 0.0
+        
+        if voi_results:
+            best_diagnostic = list(voi_results.keys())[0]
+            best_voi_value = voi_results[best_diagnostic]
+            
+        return best_action, expected_utilities, best_diagnostic, best_voi_value
 
 if __name__ == "__main__":
     model = learn_parameters()

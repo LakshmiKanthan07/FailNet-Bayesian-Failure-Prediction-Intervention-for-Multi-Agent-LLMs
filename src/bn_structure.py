@@ -43,12 +43,32 @@ failnet_edges = [
 
 def get_failnet_model(df=None, learn_structure=False):
     if learn_structure and df is not None:
-        from pgmpy.estimators import HillClimbSearch, BIC
-        print("Learning Bayesian Network structure from data using HillClimbSearch...")
-        hc = HillClimbSearch(df)
-        base_dag = DiscreteBayesianNetwork(failnet_edges)
-        best_model = hc.estimate(scoring_method=BIC(df), start_dag=base_dag, max_indegree=3, max_iter=30)
-        model = DiscreteBayesianNetwork(list(best_model.edges()))
+        if learn_structure == 'pc':
+            from pgmpy.estimators import PC
+            print("Learning Bayesian Network structure using PC Algorithm (Causal Discovery)...")
+            est = PC(df)
+            # variant='stable' for order-independent skeleton, ci_test='chi_square'
+            best_model = est.estimate(variant='stable', ci_test='chi_square', max_cond_vars=3, return_type='dag')
+            
+            # Combine learned edges with expert edges to preserve guaranteed minimums and stability
+            model = DiscreteBayesianNetwork()
+            for u, v in best_model.edges():
+                model.add_edge(u, v)
+                
+            import networkx as nx
+            for u, v in failnet_edges:
+                if not model.has_edge(u, v) and not model.has_edge(v, u):
+                     model.add_edge(u, v)
+                     # prevent cycles
+                     if not nx.is_directed_acyclic_graph(model):
+                         model.remove_edge(u, v)
+        else:
+            from pgmpy.estimators import HillClimbSearch, BIC
+            print("Learning Bayesian Network structure using HillClimbSearch...")
+            hc = HillClimbSearch(df)
+            base_dag = DiscreteBayesianNetwork(failnet_edges)
+            best_model = hc.estimate(scoring_method=BIC(df), start_dag=base_dag, max_indegree=3, max_iter=30)
+            model = DiscreteBayesianNetwork(list(best_model.edges()))
         
         # Ensure the model maintains a minimum of 20 nodes
         if len(model.nodes()) < 20:

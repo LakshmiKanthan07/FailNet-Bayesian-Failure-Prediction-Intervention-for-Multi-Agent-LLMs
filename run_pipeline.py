@@ -33,6 +33,7 @@ if __name__ == "__main__":
         ("Experiment 3: MAP Diagnosis", "experiments.exp3_map_diagnosis"),
         ("Experiment 4: Inference Time vs Evidence Size", "experiments.exp4_network_size"),
         ("Experiment 5: Evidence Uncertainty", "experiments.exp5_evidence_uncertainty"),
+        ("Experiment 6: Value of Information (VoI)", "experiments.exp6_value_of_information"),
     ]
     
     for step_name, module_path in steps:

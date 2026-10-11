@@ -1,0 +1,7 @@
+Action A,Action B,P* (crossover),Interpretation
+Continue,Retry_Step,0.7000,Below p*=0.70: prefer 'Continue'. Above: prefer 'Retry_Step'.
+Continue,Escalate_to_Human,0.7429,Below p*=0.74: prefer 'Continue'. Above: prefer 'Escalate_to_Human'.
+Continue,Halt,0.6667,Below p*=0.67: prefer 'Continue'. Above: prefer 'Halt'.
+Retry_Step,Escalate_to_Human,0.8500,Below p*=0.85: prefer 'Retry_Step'. Above: prefer 'Escalate_to_Human'.
+Retry_Step,Halt,0.6000,Below p*=0.60: prefer 'Retry_Step'. Above: prefer 'Halt'.
+Escalate_to_Human,Halt,0.0000,One action always dominates.

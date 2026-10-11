@@ -1,6 +1,6 @@
 from pgmpy.models import DiscreteBayesianNetwork
 
-# The 25-node DAG for FailNet
+# The 24-node DAG for FailNet
 failnet_edges = [
     ("Task_Complexity", "Required_Tool_Count"),
     ("Task_Complexity", "Planning_Complexity"),
